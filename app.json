@@ -8,9 +8,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "plugins": [
-      "expo-dev-client"
-    ],
+    "plugins": ["expo-dev-client"],
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
