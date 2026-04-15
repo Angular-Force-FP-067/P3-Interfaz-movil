@@ -1,97 +1,213 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# BasketApp — React Native
 
-# Getting Started
+Aplicación móvil de repositorio de jugadores de baloncesto desarrollada con React Native y Firebase Cloud Firestore.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Tecnologías
 
-## Step 1: Start Metro
+- React Native 0.85
+- React Navigation (Stack Navigator)
+- Firebase Cloud Firestore (`@react-native-firebase/firestore`)
+- React Native Video (`react-native-video`)
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Requisitos previos
 
-```sh
-# Using npm
-npm start
+Antes de arrancar el proyecto es necesario tener instalado:
 
-# OR using Yarn
-yarn start
+- [Node.js](https://nodejs.org/) v18 o superior
+- [Android Studio](https://developer.android.com/studio) con un AVD (emulador) configurado
+- Android SDK API 34 o superior
+- JDK 17
+
+---
+
+## Configuración del entorno (Windows)
+
+### 1. Variables de entorno
+
+Abre PowerShell y ejecuta para añadir el PATH del Android SDK a la sesión actual:
+
+```powershell
+$env:Path += ";$env:LOCALAPPDATA\Android\Sdk\platform-tools;$env:LOCALAPPDATA\Android\Sdk\emulator"
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 ```
 
-## Step 2: Build and run your app
+### 2. Fichero `local.properties`
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Comprueba que el fichero `android/local.properties` existe y contiene:
 
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```
+sdk.dir=C:\\Users\\<TU_USUARIO>\\AppData\\Local\\Android\\Sdk
 ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## Instalación
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### 1. Clona el repositorio
 
-```sh
-bundle install
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd equipoBasket
 ```
 
-Then, and every time you update your native dependencies, run:
+### 2. Instala las dependencias
 
-```sh
-bundle exec pod install
+```bash
+npm install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 3. Configura Firebase
 
-```sh
-# Using npm
-npm run ios
+Coloca el fichero `google-services.json` de tu proyecto Firebase en:
 
-# OR using Yarn
-yarn ios
+```
+android/app/google-services.json
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Lo puedes descargar desde [Firebase Console](https://console.firebase.google.com) → tu proyecto → ⚙️ Configuración → Tus aplicaciones → Android.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## Cómo arrancar la aplicación
 
-Now that you have successfully run the app, let's make changes!
+### Paso 1 — Arranca el emulador
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Abre Android Studio → `Virtual Device Manager` → pulsa ▶ para arrancar el **Pixel 7**.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+Espera a que el móvil virtual esté completamente encendido antes de continuar.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+> **¿Por qué Pixel 7 con API 34?**
+>
+> El **Pixel 7** es el dispositivo de referencia de Google para el desarrollo Android moderno. Representa una resolución y densidad de pantalla (1080x2400, 416 dpi) muy extendida entre los usuarios reales, por lo que el diseño de la app se verá representado de forma fiel en la mayoría de dispositivos del mercado.
+>
+> La **API 34 (Android 14)** es la versión estable más reciente con soporte activo de Google en el momento del desarrollo. Esto garantiza compatibilidad con todas las librerías utilizadas en el proyecto (`@react-native-firebase`, `react-native-video`, etc.) y acceso a las últimas APIs de seguridad y rendimiento. Usar una API inferior podría provocar incompatibilidades con las versiones mínimas requeridas por estas librerías.
 
-## Congratulations! :tada:
+### Paso 2 — Conecta el emulador al servidor Metro
 
-You've successfully run and modified your React Native App. :partying_face:
+```powershell
+adb reverse tcp:8081 tcp:8081
+```
 
-### Now what?
+### Paso 3 — Arranca el servidor Metro (Terminal 1)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+```powershell
+npx react-native start
+```
 
-# Troubleshooting
+Espera hasta que aparezca:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```
+INFO  Dev server ready.
+```
 
-# Learn More
+### Paso 4 — Compila e instala la app (Terminal 2)
 
-To learn more about React Native, take a look at the following resources:
+```powershell
+npx react-native run-android
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Cuando veas la pantalla de la app en el móvil virtual, la aplicación está funcionando correctamente.
+
+---
+
+## Estructura del proyecto
+
+```
+equipoBasket/
+├── android/                    # Configuración nativa Android
+│   └── app/
+│       └── google-services.json
+├── src/
+│   ├── screens/
+│   │   ├── HomeScreen.js       # Pantalla de presentación (Landing)
+│   │   ├── PlayersScreen.js    # Listado de jugadores con filtros
+│   │   └── DetailScreen.js     # Detalle del jugador + reproductor de vídeo
+│   ├── components/
+│   │   └── PlayerCard.js       # Componente de tarjeta de jugador
+│   └── firebase/
+│       └── firebaseConfig.js   # Configuración y conexión Firebase
+├── App.tsx                     # Punto de entrada + navegación Stack
+└── package.json
+```
+
+---
+
+## Pantallas
+
+### Landing (HomeScreen)
+Pantalla de presentación de la aplicación con las funcionalidades principales y un botón para acceder al listado de jugadores.
+
+### Jugadores (PlayersScreen)
+Listado infinito de jugadores cargados desde Firebase Cloud Firestore mediante un `FlatList`. Incluye filtros por:
+- Nombre y apellidos
+- Posición (Base, Escolta, Alero, Ala-pívot, Pívot)
+- Edad máxima
+
+### Detalle (DetailScreen)
+Información completa del jugador seleccionado:
+- Foto, nombre, posición y número de dorsal
+- Estadísticas (PPP, APP, RPP, tiros de campo)
+- Datos personales (país, edad, altura, peso)
+- Reproductor de vídeo con las mejores jugadas
+- Biografía
+
+---
+
+## Navegación
+
+La aplicación utiliza **React Navigation Stack** con tres pantallas:
+
+```
+Home → Players → Detail
+```
+
+El menú superior incluye un botón para volver a la pantalla inicial desde cualquier punto.
+
+---
+
+## Firebase
+
+La base de datos es **Cloud Firestore** con la colección `players`. Cada documento contiene:
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `nombre` | String | Nombre del jugador |
+| `apellidos` | String | Apellidos |
+| `posicion` | String | Posición en el campo |
+| `edad` | Number | Edad |
+| `altura` | Number | Altura en cm |
+| `peso` | Number | Peso en kg |
+| `numejersey` | Number | Número de dorsal |
+| `pais` | String | País de origen |
+| `PPP` | Number | Puntos por partido |
+| `APP` | Number | Asistencias por partido |
+| `RPP` | Number | Rebotes por partido |
+| `TirosCampo` | Number | % de tiros de campo |
+| `imagen` | String | URL de la imagen |
+| `videoURL` | String | URL del vídeo de mejores jugadas |
+| `biografia` | String | Biografía del jugador |
+
+---
+
+## Solución de problemas habituales
+
+**`adb` no reconocido:**
+```powershell
+$env:Path += ";$env:LOCALAPPDATA\Android\Sdk\platform-tools"
+```
+
+**El emulador aparece como OFFLINE:**
+Cierra y vuelve a arrancar el emulador desde Android Studio, espera a que esté completamente encendido y vuelve a ejecutar `npx react-native run-android`.
+
+**Error "Unable to load script":**
+```powershell
+adb reverse tcp:8081 tcp:8081
+```
+Y pulsa `r` en el terminal de Metro para recargar.
+
+**Error de caché de Metro:**
+```powershell
+npx react-native start --reset-cache
+```
