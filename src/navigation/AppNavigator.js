@@ -14,7 +14,7 @@ export default function AppNavigator() {
       <Stack.Navigator initialRouteName="Inicio">
         <Stack.Screen name="Inicio" component={HomeScreen} />
         <Stack.Screen name="Detalle" component={DetailScreen} />
-        <Stack.Screen name="Player" component={PlayerScreen} />
+        <Stack.Screen name="Players" component={PlayerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
