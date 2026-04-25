@@ -75,7 +75,7 @@ export default StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 320,
+    aspectRatio: 16 / 9,
     borderRadius: 12,
     backgroundColor: '#ddd',
   },
