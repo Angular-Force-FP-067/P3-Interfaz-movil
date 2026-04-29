@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
+import Player from '../components/Player';
 import styles from './DetailScreen.styles';
 
 const getPosicioStyle = (posicion) => {
@@ -40,7 +41,13 @@ export default function DetailScreen({ route }) {
 
   const posStyle = getPosicioStyle(player.posicion);
   const hasRemoteImage = isRemoteUrl(player.imagen);
-  const hasVideoPath = typeof player.videoURL === 'string' && player.videoURL.trim() !== '';
+  const videoSource =
+    player.videoURL ||
+    player.videoUrl ||
+    player.video ||
+    player.video_link ||
+    '';
+  const hasVideoPath = typeof videoSource === 'string' && videoSource.trim() !== '';
 
   const stats = [
     { label: 'PPP', value: player.PPP },
@@ -116,13 +123,18 @@ export default function DetailScreen({ route }) {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Vídeo destacado</Text>
-
-        <View style={styles.placeholderBox}>
-          <Text style={styles.placeholderTitle}>Espacio reservado para el vídeo</Text>
-
-          {hasVideoPath ? <Text style={styles.mediaPath}>Ruta actual: {player.videoURL}</Text> : <Text style={styles.mediaPath}>Sin ruta de vídeo</Text>}
-        </View>
+        <Text style={styles.sectionTitle}>Vídeo Resumen / Mejores Jugadas</Text>
+        {hasVideoPath ? (
+          <Player
+            sourceUri={videoSource}
+            posterUri={hasRemoteImage ? player.imagen : undefined}
+          />
+        ) : (
+          <View style={styles.placeholderBox}>
+            <Text style={styles.placeholderTitle}>Espacio reservado para el vídeo</Text>
+            <Text style={styles.mediaPath}>Sin ruta de vídeo</Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
