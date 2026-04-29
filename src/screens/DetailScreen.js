@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
-import styles from './DetailScreen.style';
+import styles from './DetailScreen.styles';
 
 const getPosicioStyle = (posicion) => {
   switch (posicion?.toLowerCase()) {
